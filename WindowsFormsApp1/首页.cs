@@ -242,7 +242,7 @@ namespace WindowsFormsApp1
                     int count = fileInfo.Length;
                     image_item = new string[count];
                     count_image = count;
-                    submit_result = new string[count_image, 3];
+                    submit_result = new string[count_image, 2];
                     for (int i = 0; i < fileInfo.Length; i++)
                     {
                         //获取文件完整目录
@@ -566,7 +566,21 @@ namespace WindowsFormsApp1
 
         private void materialButton8_Click(object sender, EventArgs e)  //图像增强-提交图片
         {
-
+            if (submit_or_not == true)
+            {
+                MessageBox.Show("已经提交过了！");
+                return;
+            }
+            if (history_submit_or_not == true)
+            {
+                MessageBox.Show("已经提交过了！");
+                return;
+            }
+            if (import_data == false)
+            {
+                MessageBox.Show("请先导入图像！");
+                return;
+            }
         }
 
         private void materialButton9_Click(object sender, EventArgs e)  //图像增强-清空图片
@@ -598,6 +612,8 @@ namespace WindowsFormsApp1
             //string name = textBox2.Text.ToString();
             //string room = comboBox4.Text.ToString();
             //string filter = $"时间='{date}' and 姓名='{name}' and 科室='{room}' and Table_1.id={textBox1.Text}";
+
+            //dt：患者列表
             DataTable dt = GetList();
             if(dt.Rows.Count == 0)
             {
