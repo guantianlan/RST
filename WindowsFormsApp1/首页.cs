@@ -35,7 +35,7 @@ namespace WindowsFormsApp1
         private List<string> imagePathList = new List<string>(); //获取列表图片路径
         private List<string> imagePredictList = new List<string>(); //获取列表图片预测结果
         private int index;                                       //获取选中列表图片序号
-        
+
         //** **
         private readonly MaterialSkinManager materialSkinManager;
 
@@ -62,7 +62,7 @@ namespace WindowsFormsApp1
 
         DataTable Major_list;
 
-        string  pathname = null;  //数据库中存放的图片目录
+        string pathname = null;  //数据库中存放的图片目录
         public static string[] photoname;  //数据库中存放的图片的名称
         public static string[] news;  //数据库中存放的图的名称
         string photo = null;
@@ -85,22 +85,24 @@ namespace WindowsFormsApp1
                        TextShade.WHITE);
 
         }
-        private bool GetImageListSave(string path, List<PictureBox> PictureBoxList)//保存图片方法
+
+        /// <summary>
+        /// 获取imageList里面图片，保存到指定路径文件夹中
+        /// </summary>
+        /// <param name="imageList">待提取图片的imageList</param>
+        /// <param name="path">想要保存图片的文件夹路径，注意文件夹想要存在</param>
+        /// <returns></returns>
+        private bool GetImageListSave(string path, ImageList imageList)//保存图片方法
         {
-            if (PictureBoxList.Count <= 0)
+            if (imageList.Images.Count <= 0)
             {
                 return false;
             }
-            for (int i = 0; i < PictureBoxList.Count; i++)
+            for (int i = 0; i < imageList.Images.Count; i++)
             {
                 try
                 {
-
-                    DirectoryInfo root = new DirectoryInfo(path);
-                    FileInfo[] files = root.GetFiles();
-                    int count = files.Length + i + 1;
-
-                    PictureBoxList[i].Image.Save(path + "\\" + count + ".jpg");
+                    imageList.Images[i].Save(path + "\\" + imageList.Images.Keys[i]);
                 }
                 catch (Exception ex)
                 {
@@ -141,7 +143,7 @@ namespace WindowsFormsApp1
         private void button5_Click_1(object sender, EventArgs e)
         {
             this.CloseParForm();
-            if(panel2.Visible == true)
+            if (panel2.Visible == true)
                 panel2.Visible = !panel2.Visible;
             if (panel3.Visible == true)
                 panel3.Visible = !panel3.Visible;
@@ -266,7 +268,7 @@ namespace WindowsFormsApp1
                     char[] separators = { '\\' };
                     string[] strings = folderDirPath.Split(separators);
                     int legth = strings.Length;
-                    pathname = "../" + strings[legth-2] + '/' + strings[legth-1];
+                    pathname = "../" + strings[legth - 2] + '/' + strings[legth - 1];
                     //获取当前目录JPG文件列表 GetFiles获取指定目录中文件的名称(包括其路径)
                     FileInfo[] fileInfo = dir.GetFiles("*.jpg");
                     //防止图片失真
@@ -307,7 +309,7 @@ namespace WindowsFormsApp1
                         lvi.ImageIndex = i;
                         //lvi.Text = "预测结果：" + "x号染色体" + "预测概率：" + "xx%";//图片名称***********pic X
                         lvi.Text = "待检测";
-                        
+
                         染色体分类.chromosome.listView1.Items.Add(lvi);
                     }
                     染色体分类.chromosome.listView1.EndUpdate();
@@ -587,7 +589,7 @@ namespace WindowsFormsApp1
                     DirectoryInfo dir = new DirectoryInfo(folderDirPath);
                     //获取当前目录JPG文件列表 GetFiles获取指定目录中文件的名称(包括其路径)
                     FileInfo[] fileInfo = dir.GetFiles("*.jpg");
-                    
+
                     //防止图片失真
                     图像增强.strong.imageList1.ColorDepth = ColorDepth.Depth32Bit;     //****
                     int length = (fileInfo.Length) + (fileInfo.Length);
@@ -601,20 +603,21 @@ namespace WindowsFormsApp1
                         //imagePathList.Add(path);
                         //图片加载到ImageList控件和imageList图片列表
                         图像增强.strong.imageList1.Images.Add(Image.FromFile(picDirPath));
+
                         //图像增强.strong.imageList1.Images.Add(Image.FromFile(path));
                     }
-               
+
                     //增加图片至datagridview控件中     
                     for (int i = 0; i < 图像增强.strong.imageList1.Images.Count; i++)
                     {
                         k++;
-                        l++;                
-                        if(i <= 46) //datagridview里的第一行
+                        l++;
+                        if (i <= 46) //datagridview里的第一行
                         {
                             DataGridViewRow dr = new DataGridViewRow();
                             dr.Height = 40;  //行高
                             dr.CreateCells(图像增强.strong.dataGridView1);
-                            for (int m = 0; m < fileInfo.Count()+1; m++)
+                            for (int m = 0; m < fileInfo.Count() + 1; m++)
                             {
                                 if (m == 0)
                                 {
@@ -629,8 +632,8 @@ namespace WindowsFormsApp1
                             图像增强.strong.dataGridView1.Rows.Add(dr);
                             //i += 46;
                         }
-                        if(i > 46)
-                        { 
+                        if (i > 46)
+                        {
                             j++;
                             //图像增强.strong.dataGridView1.Rows[j].Cells[0].Value = j.ToString();
                             //if (l % 46 == 0)
@@ -640,9 +643,9 @@ namespace WindowsFormsApp1
                             DataGridViewRow dr = new DataGridViewRow();
                             dr.Height = 40;  //行高
                             dr.CreateCells(图像增强.strong.dataGridView1);
-                            for(int m = 0; m < fileInfo.Count()+1; m++)
+                            for (int m = 0; m < fileInfo.Count() + 1; m++)
                             {
-                                if(m == 0)
+                                if (m == 0)
                                 {
                                     dr.Cells[m].Value = j.ToString();
                                 }
@@ -651,8 +654,8 @@ namespace WindowsFormsApp1
                                     dr.Cells[m].Value = Image.FromFile(imagePathList[m]);
                                 }
                             }
-                            图像增强.strong.dataGridView1.Rows.Add(dr);                            
-                            i += 46;  
+                            图像增强.strong.dataGridView1.Rows.Add(dr);
+                            i += 46;
                         }
                     }
                 }
@@ -753,7 +756,7 @@ namespace WindowsFormsApp1
             {
 
                 string img_path = path + "/" + files[k].ToString();
-                
+
 
             }
             try
@@ -767,10 +770,11 @@ namespace WindowsFormsApp1
             {
                 MessageBox.Show("提交失败！请检查染色体目录是否含有中文");
             }
-            
+
             DirectoryInfo dir = new DirectoryInfo("./submit");
             FileInfo[] fileInfo = dir.GetFiles("*.jpg");
-            图像增强.strong.imageList2.ColorDepth = ColorDepth.Depth32Bit;     //****
+            图像增强个人.people.imageList1 = 图像增强.strong.imageList1;
+            图像增强个人.people.imageList2.ColorDepth = ColorDepth.Depth32Bit;     //****
             int length = (fileInfo.Length) + (fileInfo.Length);
             for (int i = 0; i < fileInfo.Length; i++)
             {
@@ -778,10 +782,10 @@ namespace WindowsFormsApp1
                 picDirPath = fileInfo[i].FullName;
                 path = @"../img/R-C.jpg";
                 //记录图片源路径 双击显示图片时使用
-                imagePathList.Add(picDirPath);
+                //imagePathList.Add(picDirPath);
                 //imagePathList.Add(path);
                 //图片加载到ImageList控件和imageList图片列表
-                图像增强.strong.imageList2.Images.Add(Image.FromFile(picDirPath));
+                图像增强个人.people.imageList2.Images.Add(Image.FromFile(picDirPath));
                 //图像增强.strong.imageList1.Images.Add(Image.FromFile(path));
             }
         }
@@ -801,12 +805,13 @@ namespace WindowsFormsApp1
                 图像增强.strong.dataGridView1.Rows.Clear();
                 图像增强.strong.imageList1.Images.Clear();
                 图像增强.strong.dataGridView1.Refresh();
+
             }
         }
 
         private void materialButton10_Click(object sender, EventArgs e)  //图像增强-保存图片
         {
-            System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
+            System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();//用户选择需要保存的地址
             dialog.Description = "请选择染色体图像所在的文件夹";
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -818,21 +823,21 @@ namespace WindowsFormsApp1
                     directoryInfo.Create();
                 }
 
-                GetImageListSave(path, PictureBoxList_sharp);
+                GetImageListSave(path, 图像增强.strong.imageList2);
             }
         }
 
         private void materialButton12_Click(object sender, EventArgs e)  //历史记录-查询结果
         {
             DataTable dt = GetList();
-            if(dt.Rows.Count == 0)
+            if (dt.Rows.Count == 0)
             {
                 MessageBox.Show("暂无此消息！");
                 return;
             }
-            for(int i = 1; i < 47; i++)
+            for (int i = 1; i < 47; i++)
             {
-                string imagepath = dt.Rows[0]["图片"+i].ToString();
+                string imagepath = dt.Rows[0]["图片" + i].ToString();
                 char[] separators = { '+' };
                 string[] strings = imagepath.Split(separators);
                 string path = dt.Rows[0]["目录"].ToString() + "/" + strings[0];
@@ -876,7 +881,7 @@ namespace WindowsFormsApp1
 
         private void materialButton11_Click(object sender, EventArgs e)  //历史记录-清空图片
         {
-            if(历史记录.history.listView1.Items.Count != 0)
+            if (历史记录.history.listView1.Items.Count != 0)
             {
                 历史记录 history = (历史记录)this.Owner;
                 历史记录.history.listView1.Clear();

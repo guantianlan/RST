@@ -35,6 +35,7 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.materialLabel8 = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel7 = new MaterialSkin.Controls.MaterialLabel();
+            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.SuspendLayout();
             // 
             // listView1
@@ -85,9 +86,15 @@
             this.materialLabel7.Text = "病案号：";
             this.materialLabel7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // imageList2
+            // 
+            this.imageList2.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList2.ImageSize = new System.Drawing.Size(95, 95);
+            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // 图像增强个人
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 30F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1317, 781);
             this.Controls.Add(this.materialLabel8);
@@ -113,5 +120,6 @@
         public System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private MaterialSkin.Controls.MaterialLabel materialLabel8;
         private MaterialSkin.Controls.MaterialLabel materialLabel7;
+        public System.Windows.Forms.ImageList imageList2;
     }
 }
