@@ -25,7 +25,7 @@ namespace WindowsFormsApp1
         private string path1 = null;                        //灰色图片路径
         int count = 0;  //组数，3行为一组
         Image img = null;
-        int time = 0;  
+        int time = 0;
         int pic = 0;//第几张图片
         int count1 = 0;  //组数，3行为一组
         int time1 = 0;
@@ -43,51 +43,25 @@ namespace WindowsFormsApp1
             this.dgr = dgr;
             path = @"../img/R-C.jpg";
             path1 = @"../img/R-C1.jpg";
-            materialLabel8.Text = dgr.Cells[0].Value.ToString();
-            for (x = 1; x < dgr.Cells.Count; )
+            materialLabel8.Text = this.dgr.Cells[0].Value.ToString();
+            for (x = 1; x < this.dgr.Cells.Count;)
             {
-                while(count % 3 == 0 && x < dgr.Cells.Count)//第一组
+                while (count % 3 == 0 && x < this.dgr.Cells.Count)//第一组
                 {
-                    if(time != 11 && pic%3 == 0 && x < dgr.Cells.Count)
+                    if (time != 11 && pic % 3 == 0 && x < this.dgr.Cells.Count)
                     {
-                        img = (Image)dgr.Cells[x].Value;
+                        img = (Image)this.dgr.Cells[x].Value;
                         imageList1.Images.Add(img);  //图像增强前
                         x++;
                         time++;
                         pic++;
                     }
-                    if (time != 11 && pic % 3 == 1 && x < dgr.Cells.Count)
+                    if (time != 11 && pic % 3 == 1 && x < this.dgr.Cells.Count)
                     {
                         imageList1.Images.Add(Image.FromFile(path));  //图像增强后
                         time++; pic++;
                     }
-                    if (time != 11 && pic % 3 == 2 && x < dgr.Cells.Count)
-                    {   
-                        imageList1.Images.Add(Image.FromFile(path1));  //间隔
-                        time++; pic++;
-                    }
-                    if(time == 11)
-                    {
-                        count++;
-                        time = 0;
-                        continue;
-                    }
-                }
-                while (count % 3 == 1 && x < dgr.Cells.Count)//第二组
-                {
-                    if (time != 11 && pic % 3 == 2 && x < dgr.Cells.Count)
-                    {
-                        img = (Image)dgr.Cells[x].Value;
-                        imageList1.Images.Add(img);  //图像增强前
-                        x++;
-                        time++; pic++;
-                    }
-                    if (time != 11 && pic % 3 == 0 && x <= dgr.Cells.Count)
-                    {
-                        imageList1.Images.Add(Image.FromFile(path));  //图像增强后
-                        time++; pic++;
-                    }
-                    if (time != 11 && pic % 3 == 1 && x < dgr.Cells.Count)
+                    if (time != 11 && pic % 3 == 2 && x < this.dgr.Cells.Count)
                     {
                         imageList1.Images.Add(Image.FromFile(path1));  //间隔
                         time++; pic++;
@@ -99,21 +73,47 @@ namespace WindowsFormsApp1
                         continue;
                     }
                 }
-                while (count % 3 == 2 && x < dgr.Cells.Count)//第三组
+                while (count % 3 == 1 && x < this.dgr.Cells.Count)//第二组
                 {
-                    if (time != 11 && pic % 3 == 1 && x < dgr.Cells.Count)
+                    if (time != 11 && pic % 3 == 2 && x < this.dgr.Cells.Count)
                     {
-                        img = (Image)dgr.Cells[x].Value;
+                        img = (Image)this.dgr.Cells[x].Value;
                         imageList1.Images.Add(img);  //图像增强前
                         x++;
                         time++; pic++;
                     }
-                    if (time != 11 && pic % 3 == 2 && x <= dgr.Cells.Count)
+                    if (time != 11 && pic % 3 == 0 && x <= this.dgr.Cells.Count)
                     {
                         imageList1.Images.Add(Image.FromFile(path));  //图像增强后
                         time++; pic++;
                     }
-                    if (time != 11 && pic % 3 == 0 && x < dgr.Cells.Count)
+                    if (time != 11 && pic % 3 == 1 && x < this.dgr.Cells.Count)
+                    {
+                        imageList1.Images.Add(Image.FromFile(path1));  //间隔
+                        time++; pic++;
+                    }
+                    if (time == 11)
+                    {
+                        count++;
+                        time = 0;
+                        continue;
+                    }
+                }
+                while (count % 3 == 2 && x < this.dgr.Cells.Count)//第三组
+                {
+                    if (time != 11 && pic % 3 == 1 && x < this.dgr.Cells.Count)
+                    {
+                        img = (Image)this.dgr.Cells[x].Value;
+                        imageList1.Images.Add(img);  //图像增强前
+                        x++;
+                        time++; pic++;
+                    }
+                    if (time != 11 && pic % 3 == 2 && x <= this.dgr.Cells.Count)
+                    {
+                        imageList1.Images.Add(Image.FromFile(path));  //图像增强后
+                        time++; pic++;
+                    }
+                    if (time != 11 && pic % 3 == 0 && x < this.dgr.Cells.Count)
                     {
                         imageList1.Images.Add(Image.FromFile(path1));  //间隔
                         time++; pic++;
@@ -236,7 +236,7 @@ namespace WindowsFormsApp1
                         lvi.ImageIndex = i;
                         lvi.Text = "图像增强后" + k;//图片名称
                         listView1.Items.Add(lvi);
-                        a++;time1++; pic1++;
+                        a++; time1++; pic1++;
                         if (time1 != 11)
                         {
                             i++;

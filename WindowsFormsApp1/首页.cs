@@ -773,8 +773,6 @@ namespace WindowsFormsApp1
 
             DirectoryInfo dir = new DirectoryInfo("./submit");
             FileInfo[] fileInfo = dir.GetFiles("*.jpg");
-            图像增强个人.people.imageList1 = 图像增强.strong.imageList1;
-            图像增强个人.people.imageList2.ColorDepth = ColorDepth.Depth32Bit;     //****
             int length = (fileInfo.Length) + (fileInfo.Length);
             for (int i = 0; i < fileInfo.Length; i++)
             {
@@ -785,7 +783,7 @@ namespace WindowsFormsApp1
                 //imagePathList.Add(picDirPath);
                 //imagePathList.Add(path);
                 //图片加载到ImageList控件和imageList图片列表
-                图像增强个人.people.imageList2.Images.Add(Image.FromFile(picDirPath));
+                图像增强.strong.imageList2.Images.Add(Image.FromFile(picDirPath));
                 //图像增强.strong.imageList1.Images.Add(Image.FromFile(path));
             }
         }
