@@ -84,6 +84,7 @@
             this.Column47 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Column48 = new System.Windows.Forms.DataGridViewImageColumn();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -93,7 +94,7 @@
             this.label1.Location = new System.Drawing.Point(178, 1186);
             this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 30);
+            this.label1.Size = new System.Drawing.Size(67, 25);
             this.label1.TabIndex = 3;
             this.label1.Text = "label1";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -594,9 +595,15 @@
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
+            // imageList2
+            // 
+            this.imageList2.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList2.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // 图像增强
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 30F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1308, 783);
             this.Controls.Add(this.dataGridView1);
@@ -664,5 +671,6 @@
         private System.Windows.Forms.DataGridViewImageColumn Column46;
         private System.Windows.Forms.DataGridViewImageColumn Column47;
         private System.Windows.Forms.DataGridViewImageColumn Column48;
+        public System.Windows.Forms.ImageList imageList2;
     }
 }

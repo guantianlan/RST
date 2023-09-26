@@ -85,6 +85,31 @@ namespace WindowsFormsApp1
                        TextShade.WHITE);
 
         }
+        private bool GetImageListSave(string path, List<PictureBox> PictureBoxList)//保存图片方法
+        {
+            if (PictureBoxList.Count <= 0)
+            {
+                return false;
+            }
+            for (int i = 0; i < PictureBoxList.Count; i++)
+            {
+                try
+                {
+
+                    DirectoryInfo root = new DirectoryInfo(path);
+                    FileInfo[] files = root.GetFiles();
+                    int count = files.Length + i + 1;
+
+                    PictureBoxList[i].Image.Save(path + "\\" + count + ".jpg");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("保存图片错误：" + ex.Message);
+                    return false;
+                }
+            }
+            return true;
+        }
 
         //关闭已经存在的窗体方法
         public void CloseParForm()
@@ -589,7 +614,7 @@ namespace WindowsFormsApp1
                             DataGridViewRow dr = new DataGridViewRow();
                             dr.Height = 40;  //行高
                             dr.CreateCells(图像增强.strong.dataGridView1);
-                            for (int m = 0; m < fileInfo.Count(); m++)
+                            for (int m = 0; m < fileInfo.Count()+1; m++)
                             {
                                 if (m == 0)
                                 {
@@ -615,7 +640,7 @@ namespace WindowsFormsApp1
                             DataGridViewRow dr = new DataGridViewRow();
                             dr.Height = 40;  //行高
                             dr.CreateCells(图像增强.strong.dataGridView1);
-                            for(int m = 0; m < fileInfo.Count(); m++)
+                            for(int m = 0; m < fileInfo.Count()+1; m++)
                             {
                                 if(m == 0)
                                 {
@@ -742,7 +767,23 @@ namespace WindowsFormsApp1
             {
                 MessageBox.Show("提交失败！请检查染色体目录是否含有中文");
             }
-
+            
+            DirectoryInfo dir = new DirectoryInfo("./submit");
+            FileInfo[] fileInfo = dir.GetFiles("*.jpg");
+            图像增强.strong.imageList2.ColorDepth = ColorDepth.Depth32Bit;     //****
+            int length = (fileInfo.Length) + (fileInfo.Length);
+            for (int i = 0; i < fileInfo.Length; i++)
+            {
+                //获取文件完整目录
+                picDirPath = fileInfo[i].FullName;
+                path = @"../img/R-C.jpg";
+                //记录图片源路径 双击显示图片时使用
+                imagePathList.Add(picDirPath);
+                //imagePathList.Add(path);
+                //图片加载到ImageList控件和imageList图片列表
+                图像增强.strong.imageList2.Images.Add(Image.FromFile(picDirPath));
+                //图像增强.strong.imageList1.Images.Add(Image.FromFile(path));
+            }
         }
 
         private void materialButton9_Click(object sender, EventArgs e)  //图像增强-清空图片
@@ -765,7 +806,20 @@ namespace WindowsFormsApp1
 
         private void materialButton10_Click(object sender, EventArgs e)  //图像增强-保存图片
         {
+            System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
+            dialog.Description = "请选择染色体图像所在的文件夹";
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string path = dialog.SelectedPath + "\\save_rst_picture";
 
+                if (!Directory.Exists(path))
+                {
+                    DirectoryInfo directoryInfo = new DirectoryInfo(path);
+                    directoryInfo.Create();
+                }
+
+                GetImageListSave(path, PictureBoxList_sharp);
+            }
         }
 
         private void materialButton12_Click(object sender, EventArgs e)  //历史记录-查询结果
@@ -833,5 +887,6 @@ namespace WindowsFormsApp1
                 return;
             }
         }
+
     }
 }
