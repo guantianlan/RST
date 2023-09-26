@@ -189,7 +189,7 @@
             // 
             this.textBox2.Location = new System.Drawing.Point(75, 75);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(186, 27);
+            this.textBox2.Size = new System.Drawing.Size(186, 31);
             this.textBox2.TabIndex = 38;
             this.textBox2.Text = "病人1";
             // 
@@ -197,7 +197,7 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(73, 180);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(186, 27);
+            this.textBox1.Size = new System.Drawing.Size(186, 31);
             this.textBox1.TabIndex = 37;
             this.textBox1.Text = "440183200002126487";
             // 
@@ -214,7 +214,7 @@
             "整形科"});
             this.comboBox4.Location = new System.Drawing.Point(75, 125);
             this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(186, 28);
+            this.comboBox4.Size = new System.Drawing.Size(186, 32);
             this.comboBox4.TabIndex = 36;
             this.comboBox4.Text = "产科";
             // 
@@ -224,7 +224,7 @@
             this.label8.Location = new System.Drawing.Point(2, 128);
             this.label8.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(58, 20);
+            this.label8.Size = new System.Drawing.Size(69, 24);
             this.label8.TabIndex = 35;
             this.label8.Text = "科 室：";
             // 
@@ -234,7 +234,7 @@
             this.label9.Location = new System.Drawing.Point(2, 183);
             this.label9.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(69, 20);
+            this.label9.Size = new System.Drawing.Size(82, 24);
             this.label9.TabIndex = 34;
             this.label9.Text = "病案号：";
             // 
@@ -244,7 +244,7 @@
             this.label10.Location = new System.Drawing.Point(2, 78);
             this.label10.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(58, 20);
+            this.label10.Size = new System.Drawing.Size(69, 24);
             this.label10.TabIndex = 33;
             this.label10.Text = "姓 名：";
             // 
@@ -255,7 +255,7 @@
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker1.Location = new System.Drawing.Point(76, 25);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(186, 27);
+            this.dateTimePicker1.Size = new System.Drawing.Size(186, 31);
             this.dateTimePicker1.TabIndex = 30;
             // 
             // label11
@@ -264,7 +264,7 @@
             this.label11.Location = new System.Drawing.Point(2, 30);
             this.label11.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(58, 20);
+            this.label11.Size = new System.Drawing.Size(69, 24);
             this.label11.TabIndex = 29;
             this.label11.Text = "日 期：";
             // 
@@ -526,7 +526,7 @@
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(3, 55);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(54, 20);
+            this.label12.Size = new System.Drawing.Size(64, 24);
             this.label12.TabIndex = 1;
             this.label12.Text = "模型：";
             // 
@@ -715,7 +715,7 @@
             // 
             // 首页
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1461, 811);
             this.Controls.Add(this.panel1);
