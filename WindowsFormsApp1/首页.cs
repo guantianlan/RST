@@ -92,17 +92,22 @@ namespace WindowsFormsApp1
         /// <param name="imageList">待提取图片的imageList</param>
         /// <param name="path">想要保存图片的文件夹路径，注意文件夹想要存在</param>
         /// <returns></returns>
-        private bool GetImageListSave(string path, ImageList imageList)//保存图片方法
+        private bool GetImageListSave(string path, List<PictureBox> PictureBoxList)
         {
-            if (imageList.Images.Count <= 0)
+            if (PictureBoxList.Count <= 0)
             {
                 return false;
             }
-            for (int i = 0; i < imageList.Images.Count; i++)
+            for (int i = 0; i < PictureBoxList.Count; i++)
             {
                 try
                 {
-                    imageList.Images[i].Save(path + "\\" + imageList.Images.Keys[i]);
+
+                    DirectoryInfo root = new DirectoryInfo(path);
+                    FileInfo[] files = root.GetFiles();
+                    int count = files.Length + i + 1;
+
+                    PictureBoxList[i].Image.Save(path + "\\" + PictureBoxList[i].Name);
                 }
                 catch (Exception ex)
                 {
@@ -290,8 +295,12 @@ namespace WindowsFormsApp1
                         image_item[i] = picDirPath;
                         //记录图片源路径 双击显示图片时使用
                         imagePathList.Add(picDirPath);
+                        PictureBox pic = new PictureBox();
+                        pic.Name = string.Format(Convert.ToString(photo));
+                        pic.Load(picDirPath);
+                        PictureBoxList.Add(pic);
                         //图片加载到ImageList控件和imageList图片列表
-                        染色体分类.chromosome.imageList1.Images.Add(Image.FromFile(picDirPath));
+                        染色体分类.chromosome.imageList1.Images.Add(photo,Image.FromFile(picDirPath));
                     }
 
                     //显示文件列表
@@ -597,12 +606,17 @@ namespace WindowsFormsApp1
                     {
                         //获取文件完整目录
                         picDirPath = fileInfo[i].FullName;
+                        photo = fileInfo[i].Name;
                         path = @"../img/R-C.jpg";
                         //记录图片源路径 双击显示图片时使用
                         imagePathList.Add(picDirPath);
+                        PictureBox pic = new PictureBox();
+                        pic.Name = string.Format(Convert.ToString(photo));
+                        pic.Load(picDirPath);
+                        PictureBoxList.Add(pic);
                         //imagePathList.Add(path);
                         //图片加载到ImageList控件和imageList图片列表
-                        图像增强.strong.imageList1.Images.Add(Image.FromFile(picDirPath));
+                        图像增强.strong.imageList1.Images.Add(photo,Image.FromFile(picDirPath));
 
                         //图像增强.strong.imageList1.Images.Add(Image.FromFile(path));
                     }
@@ -778,12 +792,13 @@ namespace WindowsFormsApp1
             {
                 //获取文件完整目录
                 picDirPath = fileInfo[i].FullName;
+                photo = fileInfo[i].Name;
                 path = @"../img/R-C.jpg";
                 //记录图片源路径 双击显示图片时使用
                 //imagePathList.Add(picDirPath);
                 //imagePathList.Add(path);
                 //图片加载到ImageList控件和imageList图片列表
-                图像增强.strong.imageList2.Images.Add(Image.FromFile(picDirPath));
+                图像增强.strong.imageList2.Images.Add(photo, Image.FromFile(picDirPath));
                 //图像增强.strong.imageList1.Images.Add(Image.FromFile(path));
             }
         }
@@ -821,7 +836,7 @@ namespace WindowsFormsApp1
                     directoryInfo.Create();
                 }
 
-                GetImageListSave(path, 图像增强.strong.imageList2);
+                GetImageListSave(path, PictureBoxList);
             }
         }
 
