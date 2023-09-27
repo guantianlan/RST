@@ -86,38 +86,7 @@ namespace WindowsFormsApp1
 
         }
 
-        /// <summary>
-        /// 获取imageList里面图片，保存到指定路径文件夹中
-        /// </summary>
-        /// <param name="imageList">待提取图片的imageList</param>
-        /// <param name="path">想要保存图片的文件夹路径，注意文件夹想要存在</param>
-        /// <returns></returns>
-        private bool GetImageListSave(string path, List<PictureBox> PictureBoxList)
-        {
-            if (PictureBoxList.Count <= 0)
-            {
-                return false;
-            }
-            for (int i = 0; i < PictureBoxList.Count; i++)
-            {
-                try
-                {
-
-                    DirectoryInfo root = new DirectoryInfo(path);
-                    FileInfo[] files = root.GetFiles();
-                    int count = files.Length + i + 1;
-
-                    PictureBoxList[i].Image.Save(path + "\\" + PictureBoxList[i].Name);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("保存图片错误：" + ex.Message);
-                    return false;
-                }
-            }
-            return true;
-        }
-
+        
         //关闭已经存在的窗体方法
         public void CloseParForm()
         {
@@ -234,7 +203,7 @@ namespace WindowsFormsApp1
             panel2.Visible = false;
         }
 
-        private void materialLabel1_Click(object sender, EventArgs e)  // 首页-染色体分类
+        private void materialLabel1_Click(object sender, EventArgs e)  // 首页-显示染色体分类界面
         {
             this.CloseParForm();
             染色体分类 染色体分类 = new 染色体分类();
@@ -242,7 +211,7 @@ namespace WindowsFormsApp1
             panel2.Visible = !panel2.Visible;
         }
 
-        private void materialLabel2_Click(object sender, EventArgs e)  //首页-图像增强
+        private void materialLabel2_Click(object sender, EventArgs e)  //首页-显示图像增强界面
         {
             this.CloseParForm();
             图像增强 图像增强 = new 图像增强();
@@ -390,7 +359,7 @@ namespace WindowsFormsApp1
 
             strArr[0] = "2";
             strArr[1] = "2";
-            RunPythonScript(sArguments, "-u", image_item);
+            submit_result=Tools.RunPythonScript(sArguments,count_image, "-u", image_item);
             //显示文件列表
             染色体分类.chromosome.listView1.Items.Clear();
             染色体分类.chromosome.listView1.LargeImageList = 染色体分类.chromosome.imageList1;
@@ -479,105 +448,6 @@ namespace WindowsFormsApp1
             int dt = SqlDbHelper.ExecuteNonQuery(sql, CommandType.Text, scs);
 
             MessageBox.Show("提交成功！");
-        }
-
-        public static void RunPythonScript(string sArgName, string args = "", params string[] teps)
-        {
-            submit_or_not = true;
-            history_submit_or_not = true;
-            Process p = new Process();
-            string path = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + sArgName;// 获得python文件的绝对路径（将文件放在c#的debug文件夹中可以这样操作）
-            path = @"./" + sArgName;
-            //path = @"C:\Users\user\Desktop\test\"+sArgName;//(因为我没放debug下，所以直接写的绝对路径,替换掉上面的路径了)
-            //p.StartInfo.FileName = @"D:\Python\envs\python3\python.exe";//没有配环境变量的话，可以像我这样写python.exe的绝对路径。如果配了，直接写"python.exe"即可
-            p.StartInfo.FileName = @"python.exe";
-            string sArguments = path;
-            foreach (string sigstr in teps)
-            {
-                sArguments += " " + sigstr;//传递参数
-            }
-
-            sArguments += " " + args;
-            foreach (string sigstr in teps)
-            {
-                sArguments += " " + sigstr;//传递参数
-            }
-
-            sArguments += " " + args;
-
-            p.StartInfo.Arguments = sArguments;
-
-            p.StartInfo.UseShellExecute = false;
-
-            p.StartInfo.RedirectStandardOutput = true;
-
-            p.StartInfo.RedirectStandardInput = true;
-
-            p.StartInfo.RedirectStandardError = false;
-
-            p.StartInfo.CreateNoWindow = true;
-
-            p.Start();
-            p.BeginOutputReadLine();
-            p.OutputDataReceived += new DataReceivedEventHandler(p_OutputDataReceived);
-            i = 0;
-            Console.ReadLine();
-            p.WaitForExit();
-            p.Close();
-        }
-        public static void RunPythonScript_D(string sArgName, List<string> teps, string args = "")//图像增强
-        {
-            submit_or_not = true;
-            history_submit_or_not = true;
-
-            Process p = new Process();
-            string path = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + sArgName;// 获得python文件的绝对路径（将文件放在c#的debug文件夹中可以这样操作）
-            path = @"./" + sArgName;
-            p.StartInfo.FileName = @"python.exe";
-
-            string sArguments = path;
-
-            foreach (string sigstr in teps)
-            {
-                sArguments += " " + sigstr;//传递参数
-            }
-
-            sArguments += " " + args;
-
-            p.StartInfo.Arguments = sArguments;
-
-            p.StartInfo.UseShellExecute = false;
-
-            p.StartInfo.RedirectStandardOutput = true;
-
-            p.StartInfo.RedirectStandardInput = true;
-
-            p.StartInfo.RedirectStandardError = false;
-
-            p.StartInfo.CreateNoWindow = true;
-
-            p.Start();
-            Console.ReadLine();
-            p.WaitForExit();
-            p.Close();
-        }
-
-        public static void p_OutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            //返回n条语句执行n次
-
-            if (!string.IsNullOrEmpty(e.Data))
-            {
-                submit_retain += e.Data + ",";
-                string b = e.Data.ToString();
-                if (i < count_image)
-                {
-                    string[] a = b.Split(new string[] { "," }, StringSplitOptions.None);
-                    submit_result[i, 0] = a[0];//预测结果
-                    submit_result[i, 1] = a[1];//预测概率
-                    i++;
-                }
-            }
         }
 
         private void materialButton7_Click(object sender, EventArgs e)  //图像增强-导入图片
@@ -706,7 +576,7 @@ namespace WindowsFormsApp1
             string[] strArr = new string[2];//参数列表
             string sArguments;
             sArguments = @"predict.py";
-            RunPythonScript_D(sArguments, imagePathList, "-u");
+            submit_result=Tools.RunPythonScript_D(sArguments, imagePathList, "-u");
 
             图像增强.strong.dataGridView1.Rows.Clear();
 
@@ -836,7 +706,7 @@ namespace WindowsFormsApp1
                     directoryInfo.Create();
                 }
 
-                GetImageListSave(path, PictureBoxList);
+                Tools.GetImageListSave(path, PictureBoxList);
             }
         }
 
