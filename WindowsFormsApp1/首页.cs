@@ -57,7 +57,7 @@ namespace WindowsFormsApp1
         public string history_path = "./history";
         private List<PictureBox> PictureBoxList = new List<PictureBox>();
         private List<PictureBox> PictureBoxList_sharp = new List<PictureBox>();
-
+        public static bool strong_submit = false;
         PictureBox old = null;
 
         DataTable Major_list;
@@ -589,7 +589,7 @@ namespace WindowsFormsApp1
                     DataGridViewRow dr = new DataGridViewRow();
                     dr.Height = 40;  //行高
                     dr.CreateCells(图像增强.strong.dataGridView1);
-                    for (int m = 0; m < imagePathList.Count(); m++)
+                    for (int m = 0; m < imagePathList.Count()+1; m++)
                     {
                         if (m == 0)
                         {
@@ -607,15 +607,10 @@ namespace WindowsFormsApp1
                 if (i > 46)
                 {
                     j++;
-                    //图像增强.strong.dataGridView1.Rows[j].Cells[0].Value = j.ToString();
-                    //if (l % 46 == 0)
-                    //{
-                    //    k = 1;
-                    //}
                     DataGridViewRow dr = new DataGridViewRow();
                     dr.Height = 40;  //行高
                     dr.CreateCells(图像增强.strong.dataGridView1);
-                    for (int m = 0; m < imagePathList.Count(); m++)
+                    for (int m = 0; m < imagePathList.Count()+1; m++)
                     {
                         if (m == 0)
                         {
@@ -647,6 +642,7 @@ namespace WindowsFormsApp1
             {
                 if (Directory.Exists("./submit"))
                 {
+                    strong_submit = true;
                     MessageBox.Show("提交成功！");
                 }
             }
@@ -657,20 +653,74 @@ namespace WindowsFormsApp1
 
             DirectoryInfo dir = new DirectoryInfo("./submit");
             FileInfo[] fileInfo = dir.GetFiles("*.jpg");
-            int length = (fileInfo.Length) + (fileInfo.Length);
+            //int length = (fileInfo.Length) + (fileInfo.Length);
             for (int i = 0; i < fileInfo.Length; i++)
             {
                 //获取文件完整目录
                 picDirPath = fileInfo[i].FullName;
                 photo = fileInfo[i].Name;
-                path = @"../img/R-C.jpg";
+                //path = @"../img/R-C.jpg";
                 //记录图片源路径 双击显示图片时使用
                 //imagePathList.Add(picDirPath);
                 //imagePathList.Add(path);
                 //图片加载到ImageList控件和imageList图片列表
-                图像增强.strong.imageList2.Images.Add(photo, Image.FromFile(picDirPath));
+                图像增强.strong.imageList2.Images.Add(photo, Image.FromFile(picDirPath));  //图像增强后图片
                 //图像增强.strong.imageList1.Images.Add(Image.FromFile(path));
             }
+
+            图像增强.strong.dataGridView1.Rows.Clear();
+            //增加图片至datagridview控件中     
+            for (int i = 0; i < 图像增强.strong.imageList2.Images.Count; i++)
+            {
+                k++;
+                l++;
+                if (i <= 46) //datagridview里的第一行
+                {
+                    DataGridViewRow dr = new DataGridViewRow();
+                    dr.Height = 40;  //行高
+                    dr.CreateCells(图像增强.strong.dataGridView1);
+                    for (int m = 0; m < fileInfo.Count() + 1; m++)
+                    {
+                        if (m == 0)
+                        {
+                            dr.Cells[m].Value = j.ToString();
+                        }
+                        if (m > 0)
+                        {
+                            dr.Cells[m].Value = Image.FromFile(imagePathList[i]);
+                            i++;
+                        }
+                    }
+                    图像增强.strong.dataGridView1.Rows.Add(dr);
+                    //i += 46;
+                }
+                if (i > 46)
+                {
+                    j++;
+                    //图像增强.strong.dataGridView1.Rows[j].Cells[0].Value = j.ToString();
+                    //if (l % 46 == 0)
+                    //{
+                    //    k = 1;
+                    //}
+                    DataGridViewRow dr = new DataGridViewRow();
+                    dr.Height = 40;  //行高
+                    dr.CreateCells(图像增强.strong.dataGridView1);
+                    for (int m = 0; m < fileInfo.Count() + 1; m++)
+                    {
+                        if (m == 0)
+                        {
+                            dr.Cells[m].Value = j.ToString();
+                        }
+                        if (m > 0)
+                        {
+                            dr.Cells[m].Value = Image.FromFile(imagePathList[m]);
+                        }
+                    }
+                    图像增强.strong.dataGridView1.Rows.Add(dr);
+                    i += 46;
+                }
+            }
+
         }
 
         private void materialButton9_Click(object sender, EventArgs e)  //图像增强-清空图片

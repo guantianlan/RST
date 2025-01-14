@@ -41,92 +41,196 @@ namespace WindowsFormsApp1
             InitializeComponent();
             people = this;
             this.dgr = dgr;
-            path = @"../img/R-C.jpg";
+            path = @"../img/R-C.jpg";//图像增强后
             path1 = @"../img/R-C1.jpg";
             materialLabel8.Text = this.dgr.Cells[0].Value.ToString();
-            for (x = 1; x < this.dgr.Cells.Count;)
+            if(首页.strong_submit == false)
             {
-                while (count % 3 == 0 && x < this.dgr.Cells.Count)//第一组
+                for (x = 1; x < this.dgr.Cells.Count;)
                 {
-                    if (time != 11 && pic % 3 == 0 && x < this.dgr.Cells.Count)
+                    while (count % 3 == 0 && x < this.dgr.Cells.Count)//第一组
                     {
-                        img = (Image)this.dgr.Cells[x].Value;
-                        imageList1.Images.Add(img);  //图像增强前
-                        x++;
-                        time++;
-                        pic++;
+                        if (time != 11 && pic % 3 == 0 && x < this.dgr.Cells.Count)
+                        {
+                            img = (Image)this.dgr.Cells[x].Value;
+                            imageList1.Images.Add(img);  //图像增强前
+                            x++;
+                            time++;
+                            pic++;
+                        }
+                        if (time != 11 && pic % 3 == 1 && x < this.dgr.Cells.Count)
+                        {
+                            imageList1.Images.Add(Image.FromFile(path));  //图像增强后
+                            time++; pic++;
+                        }
+                        if (time != 11 && pic % 3 == 2 && x < this.dgr.Cells.Count)
+                        {
+                            imageList1.Images.Add(Image.FromFile(path1));  //间隔
+                            time++; pic++;
+                        }
+                        if (time == 11)
+                        {
+                            count++;
+                            time = 0;
+                            continue;
+                        }
                     }
-                    if (time != 11 && pic % 3 == 1 && x < this.dgr.Cells.Count)
+                    while (count % 3 == 1 && x < this.dgr.Cells.Count)//第二组
                     {
-                        imageList1.Images.Add(Image.FromFile(path));  //图像增强后
-                        time++; pic++;
+                        if (time != 11 && pic % 3 == 2 && x < this.dgr.Cells.Count)
+                        {
+                            img = (Image)this.dgr.Cells[x].Value;
+                            imageList1.Images.Add(img);  //图像增强前
+                            x++;
+                            time++; pic++;
+                        }
+                        if (time != 11 && pic % 3 == 0 && x <= this.dgr.Cells.Count)
+                        {
+                            imageList1.Images.Add(Image.FromFile(path));  //图像增强后
+                            time++; pic++;
+                        }
+                        if (time != 11 && pic % 3 == 1 && x < this.dgr.Cells.Count)
+                        {
+                            imageList1.Images.Add(Image.FromFile(path1));  //间隔
+                            time++; pic++;
+                        }
+                        if (time == 11)
+                        {
+                            count++;
+                            time = 0;
+                            continue;
+                        }
                     }
-                    if (time != 11 && pic % 3 == 2 && x < this.dgr.Cells.Count)
+                    while (count % 3 == 2 && x < this.dgr.Cells.Count)//第三组
                     {
-                        imageList1.Images.Add(Image.FromFile(path1));  //间隔
-                        time++; pic++;
-                    }
-                    if (time == 11)
-                    {
-                        count++;
-                        time = 0;
-                        continue;
+                        if (time != 11 && pic % 3 == 1 && x < this.dgr.Cells.Count)
+                        {
+                            img = (Image)this.dgr.Cells[x].Value;
+                            imageList1.Images.Add(img);  //图像增强前
+                            x++;
+                            time++; pic++;
+                        }
+                        if (time != 11 && pic % 3 == 2 && x <= this.dgr.Cells.Count)
+                        {
+                            imageList1.Images.Add(Image.FromFile(path));  //图像增强后
+                            time++; pic++;
+                        }
+                        if (time != 11 && pic % 3 == 0 && x < this.dgr.Cells.Count)
+                        {
+                            imageList1.Images.Add(Image.FromFile(path1));  //间隔
+                            time++; pic++;
+                        }
+                        if (time == 11)
+                        {
+                            count++;
+                            time = 0;
+                            continue;
+                        }
                     }
                 }
-                while (count % 3 == 1 && x < this.dgr.Cells.Count)//第二组
-                {
-                    if (time != 11 && pic % 3 == 2 && x < this.dgr.Cells.Count)
-                    {
-                        img = (Image)this.dgr.Cells[x].Value;
-                        imageList1.Images.Add(img);  //图像增强前
-                        x++;
-                        time++; pic++;
-                    }
-                    if (time != 11 && pic % 3 == 0 && x <= this.dgr.Cells.Count)
-                    {
-                        imageList1.Images.Add(Image.FromFile(path));  //图像增强后
-                        time++; pic++;
-                    }
-                    if (time != 11 && pic % 3 == 1 && x < this.dgr.Cells.Count)
-                    {
-                        imageList1.Images.Add(Image.FromFile(path1));  //间隔
-                        time++; pic++;
-                    }
-                    if (time == 11)
-                    {
-                        count++;
-                        time = 0;
-                        continue;
-                    }
-                }
-                while (count % 3 == 2 && x < this.dgr.Cells.Count)//第三组
-                {
-                    if (time != 11 && pic % 3 == 1 && x < this.dgr.Cells.Count)
-                    {
-                        img = (Image)this.dgr.Cells[x].Value;
-                        imageList1.Images.Add(img);  //图像增强前
-                        x++;
-                        time++; pic++;
-                    }
-                    if (time != 11 && pic % 3 == 2 && x <= this.dgr.Cells.Count)
-                    {
-                        imageList1.Images.Add(Image.FromFile(path));  //图像增强后
-                        time++; pic++;
-                    }
-                    if (time != 11 && pic % 3 == 0 && x < this.dgr.Cells.Count)
-                    {
-                        imageList1.Images.Add(Image.FromFile(path1));  //间隔
-                        time++; pic++;
-                    }
-                    if (time == 11)
-                    {
-                        count++;
-                        time = 0;
-                        continue;
-                    }
-                }
+                length = imageList1.Images.Count;
             }
-            length = imageList1.Images.Count;
+            else
+            {
+                for (x = 0; x < this.dgr.Cells.Count - 1;)
+                {
+                    while (count % 3 == 0 && x < this.dgr.Cells.Count)//第一组
+                    {
+                        if (time != 11 && pic % 3 == 0 && x < this.dgr.Cells.Count-1)
+                        {
+                            //x -= 1;
+                            //img = (Image)this.dgr.Cells[x].Value;
+                            img = 图像增强.strong.imageList1.Images[x];
+                            imageList1.Images.Add(img);  //图像增强前
+                            x++;time++;pic++;
+                        }
+                        if (time != 11 && pic % 3 == 1 && x < this.dgr.Cells.Count)
+                        {
+                            //imageList1.Images.Add(Image.FromFile(path));  //图像增强后
+                            img = (Image)this.dgr.Cells[x].Value;
+                            //img = 图像增强.strong.imageList2.Images[x];
+                            imageList1.Images.Add(img);  //图像增强后
+                            time++; pic++;
+                        }
+                        if (time != 11 && pic % 3 == 2 && x < this.dgr.Cells.Count)
+                        {
+                            imageList1.Images.Add(Image.FromFile(path1));  //间隔
+                            time++; pic++;
+                        }
+                        if (time == 11)
+                        {
+                            count++;
+                            time = 0;
+                            continue;
+                        }
+                    }
+                    while (count % 3 == 1 && x < this.dgr.Cells.Count)//第二组
+                    {
+                        if (time != 11 && pic % 3 == 2 && x < this.dgr.Cells.Count-1)
+                        {
+                            //img = (Image)this.dgr.Cells[x].Value;
+                            //imageList1.Images.Add(img);  //图像增强前
+                            //x -= 1;
+                            img = 图像增强.strong.imageList1.Images[x];
+                            imageList1.Images.Add(img);  //图像增强前
+                            x++;time++; pic++;
+                        }
+                        if (time != 11 && pic % 3 == 0 && x < this.dgr.Cells.Count)
+                        {
+                            //imageList1.Images.Add(Image.FromFile(path));  //图像增强后
+                            img = (Image)this.dgr.Cells[x].Value;
+                            //img = 图像增强.strong.imageList2.Images[x];
+                            imageList1.Images.Add(img);  //图像增强后
+                            time++; pic++;
+                        }
+                        if (time != 11 && pic % 3 == 1 && x < this.dgr.Cells.Count)
+                        {
+                            imageList1.Images.Add(Image.FromFile(path1));  //间隔
+                            time++; pic++;
+                        }
+                        if (time == 11)
+                        {
+                            count++;
+                            time = 0;
+                            continue;
+                        }
+                    }
+                    while (count % 3 == 2 && x < this.dgr.Cells.Count)//第三组
+                    {
+                        if (time != 11 && pic % 3 == 1 && x < this.dgr.Cells.Count-1)
+                        {
+                            //img = (Image)this.dgr.Cells[x].Value;
+                            //imageList1.Images.Add(img);  //图像增强前
+                            //x -= 1;
+                            img = 图像增强.strong.imageList1.Images[x];
+                            imageList1.Images.Add(img);  //图像增强前
+                            x++;time++; pic++;
+                        }
+                        if (time != 11 && pic % 3 == 2 && x < this.dgr.Cells.Count)
+                        {
+                            //imageList1.Images.Add(Image.FromFile(path));  //图像增强后
+                            img = (Image)this.dgr.Cells[x].Value;
+                            //if(x == 46)
+                            //    x -= 1;
+                            //img = 图像增强.strong.imageList2.Images[x];
+                            imageList1.Images.Add(img);  //图像增强后
+                            time++; pic++;
+                        }
+                        if (time != 11 && pic % 3 == 0 && x < this.dgr.Cells.Count)
+                        {
+                            imageList1.Images.Add(Image.FromFile(path1));  //间隔
+                            time++; pic++;
+                        }
+                        if (time == 11 || pic == 127)
+                        {
+                            count++;
+                            time = 0;
+                            continue;
+                        }
+                    }
+                }
+                length = imageList1.Images.Count;
+            }
         }
 
 

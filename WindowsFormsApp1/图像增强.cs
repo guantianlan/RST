@@ -56,9 +56,18 @@ namespace WindowsFormsApp1
                 return;
             try
             {
-                DataGridViewRow dgr = dataGridView1.CurrentRow;
-                图像增强个人 图像增强_个人窗 = new 图像增强个人(dgr);
-                图像增强_个人窗.Show();
+                if(首页.strong_submit == false)
+                {
+                    DataGridViewRow dgr = dataGridView1.CurrentRow;
+                    图像增强个人 图像增强_个人窗 = new 图像增强个人(dgr);
+                    图像增强_个人窗.Show();
+                }
+                else
+                {
+                    DataGridViewRow dgr = dataGridView1.CurrentRow;
+                    图像增强个人 图像增强_个人窗 = new 图像增强个人(dgr);
+                    图像增强_个人窗.Show();
+                }
             }
             catch(Exception ex)
             {
